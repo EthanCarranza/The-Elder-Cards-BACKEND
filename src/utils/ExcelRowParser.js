@@ -31,7 +31,11 @@ class ExcelRowParser {
       const obj = {};
       headers.forEach((key, idx) => {
         let finalKey = toCamelCase(key);
-        obj[finalKey] = row[idx];
+        let value = row[idx];
+        if (typeof value === "string") {
+          value = value.trim();
+        }
+        obj[finalKey] = value;
       });
       if (type === "creature") {
         if (obj.attack < 0 || obj.attack > 10)
